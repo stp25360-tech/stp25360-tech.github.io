@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Adventure Drive</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Fredoka One', cursive;
+            background: linear-gradient(180deg, #87CEEB 0%, #90EE90 100%);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .game-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .player-name {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+            to { box-shadow: 0 6px 30px rgba(255,107,107,0.4); }
+        }
+
+        .game-stats {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            z-index: 1000;
+        }
+
+        .road {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(90deg, #444 0%, #666 50%, #444 100%);
+            border-top: 5px solid #FFD700;
+            overflow: hidden;
+        }
+
+        .road-lines {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                transparent 30px,
+                white 30px,
+                white 60px
+            );
+            animation: moveLine 1s linear infinite;
+        }
+
+        @keyframes moveLine {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-60px); }
+        }
+
+        .car {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 120px;
+            transition: left 0.1s ease;
+        }
+
+        .car-body {
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(45deg, #FF4444, #FF6666);
+            border-radius: 20px 20px 5px 5px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .car-windshield {
+            width: 60px;
+            height: 30px;
+            background: linear-gradient(45deg, #87CEEB, #B0E0E6);
+            border-radius: 15px 15px 0 0;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .car-wheel {
+            width: 20px;
+            height: 20px;
+            background: #333;
+            border-radius: 50%;
+            position: absolute;
+            bottom: -10px;
+            border: 3px solid #666;
+        }
+
+        .wheel-front { left: 10px; }
+        .wheel-back { right: 10px; }
+
+        .obstacle {
+            position: absolute;
+            bottom: 50px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #8B4513, #A0522D);
+            border-radius: 10px;
+            animation: moveObstacle 3s linear infinite;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        @keyframes moveObstacle {
+            0% { right: -100px; }
+            100% { right: 100vw; }
+        }
+
+        .coin {
+            position: absolute;
+            bottom: 100px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            border-radius: 50%;
+            animation: moveCoin 2.5s linear infinite;
+            box-shadow: 0 0 20px rgba(255,215,0,0.6);
+        }
+
+        .coin::before {
+            content: '★';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        @keyframes moveCoin {
+            0% { right: -100px; transform: rotate(0deg); }
+            100% { right: 100vw; transform: rotate(360deg); }
+        }
+
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 1001;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #4ECDC4, #44A08D);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-family: 'Fredoka One', cursive;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="player-name">👤 Amonwan Khananthai</div>
+        
+        <div class="game-stats">
+            <div>คะแนน: <span id="score">0</span></div>
+            <div>ความเร็ว: <span id="speed">1</span></div>
+        </div>
+
+        <div class="road">
+            <div class="road-lines"></div>
+        </div>
+
+        <div class="car" id="car">
+            <div class="car-body">
+                <div class="car-windshield"></div>
+                <div class="car-wheel wheel-front"></div>
+                <div class="car-wheel wheel-back"></div>
+            </div>
+        </div>
+
+        <div class="game-over" id="gameOver">
+            <h2>🎮 จบเกม!</h2>
+            <p>คะแนนของคุณ: <span id="finalScore">0</span></p>
+            <button class="btn" onclick="restartGame()">เล่นอีกครั้ง</button>
+        </div>
+
+        <div class="controls">
+            🎯 ใช้ลูกศร ← → เพื่อขับรถ | หลบสิ่งกีดขวางและเก็บเหรียญ!
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+        let speed = 1;
+        let gameRunning = true;
+        let carPosition = 50; // percentage
+        let obstacles = [];
+        let coins = [];
+
+        const car = document.getElementById('car');
+        const scoreElement = document.getElementById('score');
+        const speedElement = document.getElementById('speed');
+        const gameOverScreen = document.getElementById('gameOver');
+
+        // Car movement
+        document.addEventListener('keydown', (e) => {
+            if (!gameRunning) return;
+            
+            if (e.key === 'ArrowLeft' && carPosition > 20) {
+                carPosition -= 5;
+                car.style.left = carPosition + '%';
+            }
+            if (e.key === 'ArrowRight' && carPosition < 80) {
+                carPosition += 5;
+                car.style.left = carPosition + '%';
+            }
+        });
+
+        // Touch controls for mobile
+        let touchStartX = null;
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            if (!touchStartX || !gameRunning) return;
+            
+            const touchX = e.touches[0].clientX;
+            const diff = touchX - touchStartX;
+            
+            if (diff > 50 && carPosition < 80) {
+                carPosition += 5;
+                car.style.left = carPosition + '%';
+                touchStartX = touchX;
+            } else if (diff < -50 && carPosition > 20) {
+                carPosition -= 5;
+                car.style.left = carPosition + '%';
+                touchStartX = touchX;
+            }
+        });
+
+        function createObstacle() {
+            const obstacle = document.createElement('div');
+            obstacle.className = 'obstacle';
+            obstacle.style.left = Math.random() * 80 + 10 + '%';
+            document.querySelector('.game-container').appendChild(obstacle);
+            
+            obstacles.push({
+                element: obstacle,
+                position: parseFloat(obstacle.style.left)
+            });
+
+            setTimeout(() => {
+                if (obstacle.parentNode) {
+                    obstacle.parentNode.removeChild(obstacle);
+                }
+                obstacles = obstacles.filter(obs => obs.element !== obstacle);
+            }, 4000);
+        }
+
+        function createCoin() {
+            const coin = document.createElement('div');
+            coin.className = 'coin';
+            coin.style.left = Math.random() * 80 + 10 + '%';
+            document.querySelector('.game-container').appendChild(coin);
+            
+            coins.push({
+                element: coin,
+                position: parseFloat(coin.style.left)
+            });
+
+            setTimeout(() => {
+                if (coin.parentNode) {
+                    coin.parentNode.removeChild(coin);
+                }
+                coins = coins.filter(c => c.element !== coin);
+            }, 3000);
+        }
+
+        function checkCollisions() {
+            obstacles.forEach((obs, index) => {
+                if (Math.abs(obs.position - carPosition) < 8) {
+                    gameOver();
+                }
+            });
+
+            coins.forEach((coin, index) => {
+                if (Math.abs(coin.position - carPosition) < 8) {
+                    score += 10;
+                    scoreElement.textContent = score;
+                    coin.element.style.animation = 'none';
+                    coin.element.style.transform = 'scale(0)';
+                    setTimeout(() => {
+                        if (coin.element.parentNode) {
+                            coin.element.parentNode.removeChild(coin.element);
+                        }
+                    }, 100);
+                    coins.splice(index, 1);
+                }
+            });
+        }
+
+        function gameOver() {
+            gameRunning = false;
+            document.getElementById('finalScore').textContent = score;
+            gameOverScreen.style.display = 'block';
+        }
+
+        function restartGame() {
+            score = 0;
+            speed = 1;
+            carPosition = 50;
+            gameRunning = true;
+            
+            scoreElement.textContent = score;
+            speedElement.textContent = speed;
+            car.style.left = carPosition + '%';
+            gameOverScreen.style.display = 'none';
+            
+            // Clear obstacles and coins
+            obstacles.forEach(obs => {
+                if (obs.element.parentNode) {
+                    obs.element.parentNode.removeChild(obs.element);
+                }
+            });
+            coins.forEach(coin => {
+                if (coin.element.parentNode) {
+                    coin.element.parentNode.removeChild(coin.element);
+                }
+            });
+            obstacles = [];
+            coins = [];
+        }
+
+        // Game loop
+        setInterval(() => {
+            if (!gameRunning) return;
+            
+            // Increase difficulty
+            if (score > 0 && score % 50 === 0) {
+                speed = Math.min(speed + 0.1, 3);
+                speedElement.textContent = speed.toFixed(1);
+            }
+            
+            // Create obstacles and coins
+            if (Math.random() < 0.02 * speed) {
+                createObstacle();
+            }
+            if (Math.random() < 0.015 * speed) {
+                createCoin();
+            }
+            
+            checkCollisions();
+            
+            // Increase score over time
+            score += Math.floor(speed);
+            scoreElement.textContent = score;
+        }, 100);
+
+        // Initialize game
+        car.style.left = carPosition + '%';
+    </script>
+</body>
+</html>
