@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แนะนำตัว: อมลวรรณ ขนันไทย (แซน)</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font "Inter" for a clean and readable typeface -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles for the body to center content and apply a playful background */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fce4ec; /* Light pink background, inspired by Shin-chan's playful mood */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        /* Container for the entire introduction, with a card-like appearance */
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 20px; /* Rounded corners for a friendly look */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        /* Styles for each individual page within the container */
+        .page {
+            display: none; /* Hidden by default */
+            padding: 2.5rem; /* Consistent padding around content (p-10 equivalent) */
+            text-align: center;
+            animation: fadeIn 0.5s ease-out; /* Smooth fade-in animation for page transitions */
+            min-height: 400px; /* Ensures consistent height across pages */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        /* The active page will be displayed */
+        .page.active {
+            display: flex;
+        }
+        /* Keyframe animation for a subtle fade-in effect */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Navigation buttons section styling */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            padding: 1.5rem 2.5rem; /* Padding for the navigation bar */
+            background-color: #ffe082; /* Shin-chan yellow, cheerful and vibrant */
+            border-top: 2px solid #ffcc80; /* Subtle border for separation */
+        }
+        /* Individual navigation button styling */
+        .nav-button {
+            background-color: #ff8a80; /* Shin-chan red, bold and inviting */
+            color: white;
+            padding: 0.75rem 1.5rem; /* Comfortable button size */
+            border-radius: 9999px; /* Fully rounded buttons */
+            font-weight: 600; /* Semi-bold text */
+            transition: background-color 0.3s ease; /* Smooth hover effect */
+            cursor: pointer;
+            border: none;
+        }
+        /* Hover effect for navigation buttons */
+        .nav-button:hover:not(:disabled) {
+            background-color: #ff5252; /* Darker red on hover */
+        }
+        /* Disabled state for navigation buttons */
+        .nav-button:disabled {
+            background-color: #cccccc; /* Gray for disabled buttons */
+            cursor: not-allowed;
+        }
+        /* Styling for the page indicator text (e.g., "หน้า 1/5") */
+        .page-indicator {
+            text-align: center;
+            font-size: 1.125rem; /* Larger text for readability */
+            font-weight: 600;
+            color: #424242; /* Dark gray for good contrast */
+            margin-bottom: 1rem;
+        }
+        /* Styling for main headings */
+        h1 {
+            color: #ff5252; /* Bright red for attention */
+            font-size: 2.5rem; /* Large font size for titles (text-4xl equivalent) */
+            font-weight: 700; /* Bold */
+            margin-bottom: 1.5rem;
+        }
+        /* Styling for sub-headings (not used in this specific content, but good practice) */
+        h2 {
+            color: #ff8a80; /* Lighter red */
+            font-size: 1.875rem; /* text-3xl equivalent */
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        /* Styling for paragraph text */
+        p {
+            color: #424242; /* Dark gray for readability */
+            font-size: 1.125rem; /* text-lg equivalent */
+            line-height: 1.75; /* Relaxed line height for easy reading */
+            margin-bottom: 1.5rem;
+        }
+        /* Styling for images */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px; /* Rounded corners for images */
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for images */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Page 1: Introduction -->
+        <div id="page1" class="page active">
+            <h1 class="text-5xl font-bold mb-4 text-[#FF5733]">สวัสดีค่ะ! ยินดีที่ได้รู้จักนะคะ</h1>
+            <p class="text-xl leading-relaxed text-gray-700">ชื่อ อมลวรรณ ขนันไทย</p>
+            <p class="text-xl leading-relaxed text-gray-700">ชื่อเล่น แซน ค่ะ</p>
+            <!-- Placeholder image for the introduction, Shin-chan themed -->
+            <img src="https://placehold.co/500x300/FFD700/000000?text=San's+Intro" alt="Shin-chan themed welcome image" class="mt-6 rounded-lg shadow-lg">
+        </div>
+
+        <!-- Page 2: Interests -->
+        <div id="page2" class="page">
+            <h1 class="text-5xl font-bold mb-4 text-[#FFC300]">สิ่งที่แซนสนใจ</h1>
+            <p class="text-xl leading-relaxed text-gray-700">แซนมีความสนใจในเรื่องของ <span class="font-semibold text-[#DAF7A6]">พยาบาล</span> ค่ะ</p>
+            <p class="text-lg leading-relaxed text-gray-600">เป็นอาชีพที่ท้าทายและได้ดูแลผู้อื่น แซนตั้งใจจะเรียนรู้ให้เต็มที่เพื่อช่วยเหลือผู้ป่วยในอนาคตค่ะ</p>
+            <!-- Placeholder image for nursing interest -->
+            <img src="https://placehold.co/500x300/DAF7A6/000000?text=San's+Nursing+Interest" alt="Shin-chan themed nursing interest image" class="mt-6 rounded-lg shadow-lg">
+        </div>
+
+        <!-- Page 3: Hobbies -->
+        <div id="page3" class="page">
+            <h1 class="text-5xl font-bold mb-4 text-[#C70039]">งานอดิเรกของแซน</h1>
+            <p class="text-xl leading-relaxed text-gray-700">เวลาว่าง แซน <span class="font-semibold text-[#900C3F]">ชอบนอน</span> เป็นที่สุดเลยค่ะ!</p>
+            <p class="text-xl leading-relaxed text-gray-700">และอีกอย่างที่แซนชอบก็คือ <span class="font-semibold text-[#581845]">เล่นกีต้าร์</span> ค่ะ</p>
+            <p class="text-lg leading-relaxed text-gray-600">การได้นอนหลับสบายๆ และการได้เล่นดนตรีผ่อนคลาย ทำให้แซนมีความสุขมากๆ ค่ะ</p>
+            <!-- Placeholder image for hobbies -->
+            <img src="https://placehold.co/500x300/FF5733/000000?text=San's+Hobbies" alt="Shin-chan themed hobbies image" class="mt-6 rounded-lg shadow-lg">
+        </div>
+
+        <!-- Page 4: Education -->
+        <div id="page4" class="page">
+            <h1 class="text-5xl font-bold mb-4 text-[#FFC300]">การศึกษา</h1>
+            <p class="text-xl leading-relaxed text-gray-700">ปัจจุบัน แซน <span class="font-semibold text-[#DAF7A6]">เรียนสุรธรรมพิทักษ์</span> ค่ะ</p>
+            <p class="text-lg leading-relaxed text-gray-600">เป็นโรงเรียนที่ดีและมีเพื่อนๆ ที่น่ารัก ทำให้แซนสนุกกับการเรียนทุกวันเลยค่ะ</p>
+            <!-- Placeholder image for education -->
+            <img src="https://placehold.co/500x300/FF5733/000000?text=San's+School" alt="Shin-chan themed school image" class="mt-6 rounded-lg shadow-lg">
+        </div>
+
+        <!-- Page 5: Closing/Thank You -->
+        <div id="page5" class="page">
+            <h1 class="text-5xl font-bold mb-4 text-[#C70039]">ขอบคุณที่รับชมนะคะ!</h1>
+            <p class="text-xl leading-relaxed text-gray-700">หวังว่าทุกคนจะได้รู้จักแซนมากขึ้นนะคะ</p>
+            <p class="text-lg leading-relaxed text-gray-600">ขอให้มีวันที่ดีค่ะ!</p>
+            <!-- Placeholder image for thank you -->
+            <img src="https://placehold.co/500x300/FFD700/000000?text=Thank+You+from+San" alt="Shin-chan themed thank you image" class="mt-6 rounded-lg shadow-lg">
+        </div>
+
+        <!-- Page Navigation Buttons -->
+        <div class="nav-buttons">
+            <button id="prevBtn" class="nav-button">หน้าก่อนหน้า</button>
+            <div id="pageIndicator" class="page-indicator">หน้า 1/5</div>
+            <button id="nextBtn" class="nav-button">หน้าถัดไป</button>
+        </div>
+    </div>
+
+    <script>
+        // Get all page elements from the DOM
+        const pages = document.querySelectorAll('.page');
+        // Get navigation buttons and the page indicator element
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const pageIndicator = document.getElementById('pageIndicator');
+        // Initialize the current page index to the first page (0-based)
+        let currentPageIndex = 0;
+
+        /**
+         * Function to display the current page and manage visibility of other pages.
+         * It also updates the state of navigation buttons (enabled/disabled) and the page number.
+         */
+        function showPage() {
+            // Iterate through all pages to hide them
+            pages.forEach((page, index) => {
+                page.classList.remove('active'); // Remove 'active' class from all pages
+                if (index === currentPageIndex) {
+                    page.classList.add('active'); // Add 'active' class to the current page to display it
+                }
+            });
+
+            // Update the text of the page indicator to show current page number and total pages
+            pageIndicator.textContent = `หน้า ${currentPageIndex + 1}/${pages.length}`;
+
+            // Disable 'Previous' button if on the first page
+            prevBtn.disabled = currentPageIndex === 0;
+            // Disable 'Next' button if on the last page
+            nextBtn.disabled = currentPageIndex === pages.length - 1;
+        }
+
+        /**
+         * Event listener for the "Previous" button click.
+         * Decrements the currentPageIndex and calls showPage() to update the display,
+         * only if it's not already on the first page.
+         */
+        prevBtn.addEventListener('click', () => {
+            if (currentPageIndex > 0) {
+                currentPageIndex--;
+                showPage();
+            }
+        });
+
+        /**
+         * Event listener for the "Next" button click.
+         * Increments the currentPageIndex and calls showPage() to update the display,
+         * only if it's not already on the last page.
+         */
+        nextBtn.addEventListener('click', () => {
+            if (currentPageIndex < pages.length - 1) {
+                currentPageIndex++;
+                showPage();
+            }
+        });
+
+        // When the window loads, ensure the first page is displayed
+        window.onload = showPage;
+    </script>
+</body>
+</html>
